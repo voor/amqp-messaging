@@ -9,8 +9,19 @@
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voor/amqp-messaging.git"
+  },
+  "keywords": [
+    "amqp"
+  ],
   "author": "Robert Van Voorhees",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/voor/amqp-messaging/issues"
+  },
+  "homepage": "https://github.com/voor/amqp-messaging#readme",
   "dependencies": {
     "amqplib": "^0.5.5",
     "dotenv": "^8.1.0",

@@ -1,0 +1,12 @@
+releases:
+  - name: amqp-receiver
+    chart: ./helm/amqp-receiver
+    namespace: app
+    values:
+      - sample.
+
+  - name: amqp-sender
+    chart: ./helm/amqp-sender
+    namespace: app
+    values:
+      - ingress/external-dns.yaml.gotmpl
