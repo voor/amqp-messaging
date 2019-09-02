@@ -3,10 +3,10 @@ releases:
     chart: ./helm/amqp-receiver
     namespace: app
     values:
-      - sample.
+      - aws-dev/amqp-receiver.values.yaml.gotmpl
 
   - name: amqp-sender
     chart: ./helm/amqp-sender
     namespace: app
     values:
-      - ingress/external-dns.yaml.gotmpl
+      - aws-dev/amqp-sender.values.yaml.gotmpl

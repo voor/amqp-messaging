@@ -1,11 +1,12 @@
 import { createLogger, format, Logger, transports } from "winston";
 
-export default class Logging {
+const { LOG_LEVEL } = process.env;
+
+class Logging {
   private log: Logger;
 
-  constructor(environment: { level: string }) {
+  constructor() {
     this.log = createLogger({
-      ...environment,
       defaultMeta: { service: "amqp-receiver" },
       format: format.combine(
         format.timestamp({
@@ -19,7 +20,10 @@ export default class Logging {
     });
   }
 
-  public logger() {
+  public logger(): Logger {
     return this.log;
   }
 }
+
+const logger = new Logging();
+export default logger.logger();

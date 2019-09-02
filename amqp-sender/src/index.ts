@@ -3,12 +3,13 @@
 import amqp from "amqplib";
 import crypto from "crypto";
 import dotenv from "dotenv";
-import Logging from "./logging";
+import client from "prom-client";
+import logger from "./logging";
+import Metrics from "./metrics";
 
 dotenv.config();
 
 const {
-  LOG_LEVEL,
   RABBITMQ_EXCHANGENAME,
   RABBITMQ_HOST,
   RABBITMQ_MESSAGETYPE,
@@ -16,13 +17,17 @@ const {
   RABBITMQ_USER
 } = process.env;
 
-const logger = new Logging({ level: LOG_LEVEL }).logger();
-
 const url: amqp.Options.Connect = {
   hostname: RABBITMQ_HOST,
   password: RABBITMQ_PASSWORD,
   username: RABBITMQ_USER
 };
+
+const metrics = new Metrics();
+const sentCounter = new client.Counter({
+  help: "number of sent messages",
+  name: "sent_messages"
+});
 
 const sendRandomLog: (channel: amqp.Channel) => void = async (
   channel: amqp.Channel
@@ -30,6 +35,7 @@ const sendRandomLog: (channel: amqp.Channel) => void = async (
   const message = crypto.randomBytes(20).toString("hex");
 
   channel.publish(RABBITMQ_EXCHANGENAME, "", Buffer.from(message));
+  sentCounter.inc();
   logger.debug(`Sent message ${message}`);
 };
 

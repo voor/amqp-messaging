@@ -8,19 +8,19 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Receiver",
-      "program": "${workspaceFolder}/receiver/src/index.ts",
-      "preLaunchTask": "tsc: build - receiver/tsconfig.json",
-      "envFile": "${workspaceFolder}/receiver/.env",
-      "outFiles": ["${workspaceFolder}/receiver/dist/**/*.js"]
+      "program": "${workspaceFolder}/amqp-receiver/src/index.ts",
+      "preLaunchTask": "tsc: build - amqp-receiver/tsconfig.json",
+      "envFile": "${workspaceFolder}/amqp-receiver/.env",
+      "outFiles": ["${workspaceFolder}/amqp-receiver/dist/**/*.js"]
     },
     {
       "type": "node",
       "request": "launch",
       "name": "Launch Sender",
-      "program": "${workspaceFolder}/sender/src/index.ts",
-      "preLaunchTask": "tsc: build - sender/tsconfig.json",
-      "envFile": "${workspaceFolder}/sender/.env",
-      "outFiles": ["${workspaceFolder}/sender/dist/**/*.js"]
+      "program": "${workspaceFolder}/amqp-sender/src/index.ts",
+      "preLaunchTask": "tsc: build - amqp-sender/tsconfig.json",
+      "envFile": "${workspaceFolder}/amqp-sender/.env",
+      "outFiles": ["${workspaceFolder}/amqp-sender/dist/**/*.js"]
     }
   ]
 }

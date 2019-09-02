@@ -1,11 +1,12 @@
 import amqp, { ConsumeMessage } from "amqplib";
 import dotenv from "dotenv";
-import Logging from "./logging";
+import client from "prom-client";
+import logger from "./logging";
+import Metrics from "./metrics";
 
 dotenv.config();
 
 const {
-  LOG_LEVEL,
   RABBITMQ_EXCHANGENAME,
   RABBITMQ_HOST,
   RABBITMQ_MESSAGETYPE,
@@ -19,10 +20,16 @@ const url: amqp.Options.Connect = {
   username: RABBITMQ_USER
 };
 
-const logger = new Logging({ level: LOG_LEVEL }).logger();
+const metrics = new Metrics();
+const received = new client.Counter({
+  help: "number of received messages",
+  name: "received_messages"
+});
 
-const outputLog: (message: ConsumeMessage) => void = message =>
+const outputLog: (message: ConsumeMessage) => void = message => {
   logger.debug(`Received: ${message.content.toString()}`);
+  received.inc(); // Inc with 1
+};
 
 const sleep = (ms: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms));
