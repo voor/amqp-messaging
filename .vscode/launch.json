@@ -1,0 +1,26 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Receiver",
+      "program": "${workspaceFolder}/receiver/src/index.ts",
+      "preLaunchTask": "tsc: build - receiver/tsconfig.json",
+      "envFile": "${workspaceFolder}/receiver/.env",
+      "outFiles": ["${workspaceFolder}/receiver/dist/**/*.js"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Sender",
+      "program": "${workspaceFolder}/sender/src/index.ts",
+      "preLaunchTask": "tsc: build - sender/tsconfig.json",
+      "envFile": "${workspaceFolder}/sender/.env",
+      "outFiles": ["${workspaceFolder}/sender/dist/**/*.js"]
+    }
+  ]
+}

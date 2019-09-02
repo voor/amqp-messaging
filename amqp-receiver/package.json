@@ -1,0 +1,28 @@
+{
+  "name": "amqp-receiver",
+  "version": "1.0.0",
+  "description": "receives messages and outputs",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Van Voorhees",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "dotenv": "^8.1.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.5.13",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^12.7.3",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.2"
+  }
+}
