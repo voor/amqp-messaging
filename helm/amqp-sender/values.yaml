@@ -9,6 +9,8 @@ image:
   tag: 0.0.1
   pullPolicy: IfNotPresent
 
+labels: {}
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -40,3 +42,7 @@ config:
     messageType: fanout
     exchangeName: messages
   logLevel: debug
+
+# Service is just used for metrics
+service:
+  type: ClusterIP

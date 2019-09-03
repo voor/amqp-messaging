@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: amqp-messaging
+    app.kubernetes.io/managed-by: cli
+    app.kubernetes.io/name: amqp-messaging
+    app.kubernetes.io/version: "1.0"
+  name: amqp-messaging
+  namespace: monitoring
+spec:
+  endpoints:
+  - interval: 30s
+    port: prometheus
+  namespaceSelector:
+    matchNames:
+    - app
+  selector:
+    matchLabels:
+      metrics: amqp-messaging
