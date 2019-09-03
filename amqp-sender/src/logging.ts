@@ -1,4 +1,4 @@
-import { createLogger, format, Logger, transports } from "winston";
+import { createLogger, format, Logger, transports } from 'winston';
 
 const { LOG_LEVEL } = process.env;
 
@@ -7,10 +7,10 @@ class Logging {
 
   constructor() {
     this.log = createLogger({
-      defaultMeta: { service: "amqp-receiver" },
+      defaultMeta: { service: 'amqp-receiver' },
       format: format.combine(
         format.timestamp({
-          format: "YYYY-MM-DD HH:mm:ss"
+          format: 'YYYY-MM-DD HH:mm:ss'
         }),
         format.errors({ stack: true }),
         format.splat(),

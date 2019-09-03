@@ -1,8 +1,8 @@
-import amqp, { ConsumeMessage } from "amqplib";
-import dotenv from "dotenv";
-import client from "prom-client";
-import logger from "./logging";
-import Metrics from "./metrics";
+import amqp, { ConsumeMessage } from 'amqplib';
+import dotenv from 'dotenv';
+import client from 'prom-client';
+import logger from './logging';
+import Metrics from './metrics';
 
 dotenv.config();
 
@@ -22,8 +22,8 @@ const url: amqp.Options.Connect = {
 
 const metrics = new Metrics();
 const received = new client.Counter({
-  help: "number of received messages",
-  name: "received_messages"
+  help: 'number of received messages',
+  name: 'received_messages'
 });
 
 const outputLog: (message: ConsumeMessage) => void = message => {
@@ -35,10 +35,10 @@ const sleep = (ms: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms));
 
 const connectAnd = async (connectOptions: amqp.Options.Connect) => {
-  logger.debug("Connecting...");
+  logger.debug('Connecting...');
   const conn = await amqp.connect(connectOptions);
-  logger.debug("... Connection successful.");
-  process.once("SIGINT", () => conn.close());
+  logger.debug('... Connection successful.');
+  process.once('SIGINT', () => conn.close());
   try {
     const channel = await conn.createChannel();
 
@@ -46,9 +46,9 @@ const connectAnd = async (connectOptions: amqp.Options.Connect) => {
       durable: false
     });
 
-    const queue = await channel.assertQueue("", { exclusive: true });
+    const queue = await channel.assertQueue('', { exclusive: true });
 
-    await channel.bindQueue(queue.queue, RABBITMQ_EXCHANGENAME, "");
+    await channel.bindQueue(queue.queue, RABBITMQ_EXCHANGENAME, '');
 
     await channel.consume(queue.queue, outputLog, { noAck: true });
     logger.info(
@@ -58,7 +58,7 @@ const connectAnd = async (connectOptions: amqp.Options.Connect) => {
     await (async () => {
       while (true) {
         await sleep(30000);
-        logger.debug("Still waiting.");
+        logger.debug('Still waiting.');
       }
     })();
   } catch (err) {

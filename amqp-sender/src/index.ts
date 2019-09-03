@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import amqp from "amqplib";
-import crypto from "crypto";
-import dotenv from "dotenv";
-import client from "prom-client";
-import logger from "./logging";
-import Metrics from "./metrics";
+import amqp from 'amqplib';
+import crypto from 'crypto';
+import dotenv from 'dotenv';
+import client from 'prom-client';
+import logger from './logging';
+import Metrics from './metrics';
 
 dotenv.config();
 
@@ -25,16 +25,16 @@ const url: amqp.Options.Connect = {
 
 const metrics = new Metrics();
 const sentCounter = new client.Counter({
-  help: "number of sent messages",
-  name: "sent_messages"
+  help: 'number of sent messages',
+  name: 'sent_messages'
 });
 
 const sendRandomLog: (channel: amqp.Channel) => void = async (
   channel: amqp.Channel
 ) => {
-  const message = crypto.randomBytes(20).toString("hex");
+  const message = crypto.randomBytes(20).toString('hex');
 
-  channel.publish(RABBITMQ_EXCHANGENAME, "", Buffer.from(message));
+  channel.publish(RABBITMQ_EXCHANGENAME, '', Buffer.from(message));
   sentCounter.inc();
   logger.debug(`Sent message ${message}`);
 };
@@ -48,7 +48,7 @@ const sleep = (ms: number): Promise<void> =>
 
 const connectAnd = async (connectOptions: amqp.Options.Connect) => {
   const conn = await amqp.connect(connectOptions);
-  process.once("SIGINT", () => conn.close());
+  process.once('SIGINT', () => conn.close());
   try {
     const channel = await conn.createChannel();
 
